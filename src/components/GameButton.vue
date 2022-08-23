@@ -7,6 +7,17 @@
 <script>
 import axios from "axios";
 export default {
+
+data() {
+  return {
+    score: [{
+        loss: undefined,
+        wins: undefined
+      }]
+    }
+  
+  },
+
   methods: {
     roll_number() {
       axios
@@ -14,11 +25,11 @@ export default {
           url: `http://www.randomnumberapi.com/api/v1.0/randomnumber`,
         })
         .then((res) => {
-          this.rolled_number = res[`data`][0];
+          this.rolled_number = res[`data`];
           if (this.rolled_number < 50) {
-            document.body.insertAdjacentHTML(`afterbegin``<h3>lost</h3>`);
+        this.loss = this.loss + 1; 
           } else {
-            document.body.insertAdjacentHTML(`afterbegin``<h3>Win!</h3>`);
+            this.wins = this.wins + 1;
           }
         })
         .catch((err) => {
